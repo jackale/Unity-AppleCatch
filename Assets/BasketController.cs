@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class BasketController : MonoBehaviour
 {
+    public AudioClip appleSE;
+    public AudioClip bombSE;
+    AudioSource aud;
+
+    void Start()
+    {
+        this.aud = GetComponent<AudioSource>();
+    }
     void Update()
     {
         if (Input.GetMouseButton(0))
@@ -23,6 +31,15 @@ public class BasketController : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         Debug.Log("キャッチ！" + other.tag);
+        if (other.tag == "Apple")
+        {
+            this.aud.PlayOneShot(this.appleSE);
+        }
+        else
+        {
+            this.aud.PlayOneShot(this.bombSE);
+        }
+        
         Destroy(other.gameObject);
     }
 }
