@@ -7,9 +7,11 @@ public class BasketController : MonoBehaviour
     public AudioClip appleSE;
     public AudioClip bombSE;
     AudioSource aud;
+    GameObject director;
 
     void Start()
     {
+        this.director = GameObject.Find("GameDirector");
         this.aud = GetComponent<AudioSource>();
     }
     void Update()
@@ -34,12 +36,14 @@ public class BasketController : MonoBehaviour
         if (other.tag == "Apple")
         {
             this.aud.PlayOneShot(this.appleSE);
+            this.director.GetComponent<GameDirector>().GetApple();
         }
         else
         {
             this.aud.PlayOneShot(this.bombSE);
+            this.director.GetComponent<GameDirector>().GetBomb();
         }
-        
+
         Destroy(other.gameObject);
     }
 }
